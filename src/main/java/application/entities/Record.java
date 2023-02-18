@@ -2,6 +2,7 @@ package application.entities;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -14,11 +15,11 @@ public class Record {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "OPERATION_ID", unique = true)
+    @JoinColumn(name = "OPERATION_ID")
     private Operation operation;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID", unique = true)
+    @JoinColumn(name = "USER_ID")
     private User user;
 
     @Column(name = "AMOUNT")
@@ -31,7 +32,9 @@ public class Record {
     private Double operationResponse;
 
     @Column(name = "DATE")
-    private Date date;
+    private LocalDate date;
+
+    public Record() {}
 
     public Long getId() {
         return id;
@@ -65,11 +68,11 @@ public class Record {
         this.operationResponse = operationResponse;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

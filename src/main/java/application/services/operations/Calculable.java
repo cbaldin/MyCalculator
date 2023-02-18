@@ -1,4 +1,4 @@
-package application.services;
+package application.services.operations;
 
 public interface Calculable {
 

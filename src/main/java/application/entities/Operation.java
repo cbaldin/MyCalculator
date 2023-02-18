@@ -15,13 +15,20 @@ public class Operation {
     private Long id;
 
     @Column(name = "TYPE")
-    private String type;
+    private OperationType type;
 
     @Column(name = "COST")
     private Double cost;
 
     @OneToMany(targetEntity=Record.class, mappedBy="operation")
     private List<Record> records = new ArrayList<>();
+
+    public Operation(){}
+
+    public Operation(OperationType operationType, Double cost) {
+        this.type = operationType;
+        this.cost = cost;
+    }
 
     public Long getId() {
         return id;
@@ -31,11 +38,11 @@ public class Operation {
         this.id = id;
     }
 
-    public String getType() {
+    public OperationType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(OperationType type) {
         this.type = type;
     }
 

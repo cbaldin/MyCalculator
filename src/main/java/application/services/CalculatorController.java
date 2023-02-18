@@ -3,6 +3,8 @@ package application.services;
 import application.entities.Operation;
 import application.entities.Record;
 import application.entities.User;
+import application.entities.UserStatus;
+import application.exceptions.UserNotFoundException;
 import application.repository.RecordRepository;
 import application.repository.UserRepository;
 import org.hibernate.SessionFactory;
@@ -11,6 +13,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.io.IOException;
+import java.util.List;
+
+import static application.Main.MARIO_USERNAME;
 
 @RestController
 @RequestMapping("api/v1")
@@ -22,17 +29,13 @@ public class CalculatorController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private RandomStringGeneratorService randomStringGeneratorService;
+
     @GetMapping("/sum")
     public String sum(@RequestParam(value = "x") String x,
                       @RequestParam(value = "y", defaultValue = "0") String y) {
-        User user = new User();
-        user.setPassword("teste");
-        user.setStatus("teste");
-        user.setStatus("statys teste");
-
-        userRepository.save(user);
-
-        return "Result of the sum:" + calculatorService.sum(x, y);
+        return "Result of the sum:" + calculatorService.sum(x, y); //TODO encontrar usuário.
     }
 
     @GetMapping("/sub")
@@ -57,9 +60,15 @@ public class CalculatorController {
         return "Result of the div:" + result;
     }
 
-    @GetMapping("/")
-    public String index() {
-        return "Greetings from Spring Boot!";
+    @GetMapping("/square-root")
+    public String squareRoot(@RequestParam(value = "x") String x) {
+        return "Result of the squareRoot:" + Math.sqrt(Double.parseDouble(x));
+    }
+
+    @GetMapping("/random-string")
+    public String randomString() throws IOException, InterruptedException {
+        final User firstByUsername = userRepository.findOneByUsername(MARIO_USERNAME).orElseThrow(UserNotFoundException::new);
+        return "Result of the random String: " + randomStringGeneratorService.getRandomString(firstByUsername);
     }
 
 }

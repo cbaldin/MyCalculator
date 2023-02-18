@@ -9,6 +9,8 @@ import java.util.List;
 @Table(name = "SYS_USER")
 public class User {
 
+    public static final Double INITIAL_BALANCE = 20.0;
+
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE)
     @Column(name = "ID")
@@ -20,11 +22,19 @@ public class User {
     @Column(name = "PASSWORD")
     private String password; //criptografar
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "STATUS")
-    private String status; //active inactive
+    private UserStatus status;
 
     @OneToMany(targetEntity=Record.class, mappedBy="user")
-    private List<Record> persons = new ArrayList<>();
+    private List<Record> records = new ArrayList<>();
+
+    public User() {}
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
     public Long getId() {
         return id;
@@ -50,19 +60,19 @@ public class User {
         this.password = password;
     }
 
-    public String getStatus() {
+    public UserStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(UserStatus status) {
         this.status = status;
     }
 
-    public List<Record> getPersons() {
-        return persons;
+    public List<Record> getRecords() {
+        return records;
     }
 
-    public void setPersons(List<Record> persons) {
-        this.persons = persons;
+    public void setRecords(List<Record> records) {
+        this.records = records;
     }
 }

@@ -16,7 +16,7 @@
 
 For testing purposes, the standard user has 50 credits.
 Default user:
-* test@test.com / 123
+* test@test.com
   
 Every operation has an authentication/authorization, for this reason, to make requests it is first necessary to obtain a token in the /login service and later make a request in the desired service
 
@@ -29,7 +29,7 @@ curl --location 'http://ec2-52-90-4-159.compute-1.amazonaws.com:8080/api/v1/logi
 --header 'Content-Type: application/json' \
 --data-raw '{
 "username": "test@test.com",
-"password": "123"
+"password": ""
 }'
 
 Simple cURL for verify the Bearer token.

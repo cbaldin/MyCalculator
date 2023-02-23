@@ -25,6 +25,7 @@ Project uses Java 19, SpringBoot, Rest APIs, Junit, Mockito, PostgreSQL, JPA and
 
 ## cURL
 Simple cURL for login.
+
 curl --location 'http://ec2-52-90-4-159.compute-1.amazonaws.com:8080/api/v1/login' \
 --header 'Content-Type: application/json' \
 --data-raw '{
@@ -33,5 +34,6 @@ curl --location 'http://ec2-52-90-4-159.compute-1.amazonaws.com:8080/api/v1/logi
 }'
 
 Simple cURL for verify the Bearer token.
+
 curl --location 'http://ec2-52-90-4-159.compute-1.amazonaws.com:8080/api/v1/login/verify' \
 --header 'Authorization: Bearer eb7YczBrHyCBXasYa-U7bVAx-0kEd3LS'

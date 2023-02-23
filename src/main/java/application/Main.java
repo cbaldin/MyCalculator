@@ -14,7 +14,7 @@ import org.springframework.context.event.EventListener;
 @SpringBootApplication
 public class Main {
 
-    public static final String MARIO_USERNAME = "mario@teste.com";
+    public static final String MARIO_USERNAME = "test@test.com";
 
     @Autowired
     private UserRepository userRepository;
@@ -35,10 +35,10 @@ public class Main {
     }
 
     private void createDefaultData() {
-        final User user = new User(MARIO_USERNAME,"Mr. Test");
+        final User user = new User(MARIO_USERNAME,"123");
         userRepository.save(user);
 
-        userRepository.save(new User("john@teste.com","Mr. Test"));
+        userRepository.save(new User("john@test.com","123"));
 
         Operation addition = new Operation(OperationType.ADDITION, 1.00);
         operationRepository.save(addition);

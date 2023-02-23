@@ -1,5 +1,7 @@
 package application.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ public class Operation {
     private Long id;
 
     @Column(name = "TYPE")
+    @Enumerated(EnumType.STRING)
     private OperationType type;
 
     @Column(name = "COST")

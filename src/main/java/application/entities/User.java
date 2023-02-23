@@ -2,6 +2,7 @@ package application.entities;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
 @Table(name = "SYS_USER")
 public class User {
 
-    public static final Double INITIAL_BALANCE = 20.0;
+    public static final Double INITIAL_BALANCE = 50.0;
 
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE)
@@ -28,6 +29,10 @@ public class User {
 
     @OneToMany(targetEntity=Record.class, mappedBy="user")
     private List<Record> records = new ArrayList<>();
+
+    @OneToMany(targetEntity=Token.class, mappedBy="user")
+    private List<Token> tokens = new ArrayList<>();
+
 
     public User() {}
 
@@ -74,5 +79,21 @@ public class User {
 
     public void setRecords(List<Record> records) {
         this.records = records;
+    }
+
+    public List<Token> getTokens() {
+        return tokens;
+    }
+
+    public void addTokens(Token token) {
+        getTokens().add(token);
+    }
+
+    public void addTokens(String stringToken) {  //TODO move to factory
+        Token token = new Token();
+        token.setToken(stringToken);
+        token.setDate(LocalDate.now());
+        token.setUser(this);
+        getTokens().add(token);
     }
 }

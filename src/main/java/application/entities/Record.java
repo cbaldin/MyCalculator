@@ -1,9 +1,14 @@
 package application.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Optional;
 
 @Entity
 @Table(name = "RECORD")
@@ -32,7 +37,10 @@ public class Record {
     private Double operationResponse;
 
     @Column(name = "DATE")
-    private LocalDate date;
+    private LocalDateTime date;
+
+    @Column(name = "DELETED_DATE")
+    private LocalDate deleted;
 
     public Record() {}
 
@@ -68,11 +76,11 @@ public class Record {
         this.operationResponse = operationResponse;
     }
 
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
@@ -90,5 +98,13 @@ public class Record {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Optional<LocalDate> getDeleted() {
+        return Optional.ofNullable(deleted);
+    }
+
+    public void setDeleted(LocalDate deleted) {
+        this.deleted = deleted;
     }
 }

@@ -27,7 +27,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1")
-@CrossOrigin(origins = "http://localhost:8081")
+@CrossOrigin(origins = {"*"})
 public class CalculatorController {
 
     @Autowired

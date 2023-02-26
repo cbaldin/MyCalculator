@@ -78,7 +78,7 @@ public class MyCalculatorApplicationTests {
         when(operationRepository.findOneByType(Mockito.any(OperationType.class))).thenReturn(operation);
         when(recordRepository.save(Mockito.any(Record.class))).thenReturn(new Record());
 
-        Record charge = calculatorService.charge(user, OperationType.SUBTRACTION);
+        Record charge = calculatorService.charge(user, OperationType.SUBTRACTION, "10");
         Assert.assertEquals( OperationType.SUBTRACTION, charge.getOperation().getType());
         Assert.assertEquals(Double.valueOf(1.50D), charge.getAmount());
         Assert.assertEquals(Double.valueOf(48.50), charge.getUserBalance());

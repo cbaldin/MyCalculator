@@ -20,9 +20,9 @@ public abstract class Chargeable {
     private OperationRepository operationRepository;
 
     @Autowired
-    private RecordRepository recordRepository;
+    private RecordFactory recordFactory;
 
-    public Record charge(User user, OperationType operationType) {
+    public Record charge(User user, OperationType operationType, String operationResponse) {
         var userBalance = 0.0;
 
         if (user.getRecords().isEmpty()) {
@@ -36,15 +36,7 @@ public abstract class Chargeable {
             throw new InsufficientFundsException();
         }
 
-        var record = new Record();
-        record.setOperation(operation);
-        record.setAmount(operation.getCost());
-        record.setOperationResponse(0.0);
-        record.setDate(LocalDateTime.now());
-        record.setUser(user);
-        record.setUserBalance(userBalance - operation.getCost());
-        recordRepository.save(record);
-        return record;
+        return recordFactory.createRecord(user, userBalance, operation, operationResponse);
     }
 
 }

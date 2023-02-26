@@ -34,7 +34,7 @@ public class Record {
     private Double userBalance;
 
     @Column(name = "OPERATION_RESPONSE")
-    private Double operationResponse;
+    private String operationResponse;
 
     @Column(name = "DATE")
     private LocalDateTime date;
@@ -68,11 +68,11 @@ public class Record {
         this.userBalance = userBalance;
     }
 
-    public Double getOperationResponse() {
+    public String getOperationResponse() {
         return operationResponse;
     }
 
-    public void setOperationResponse(Double operationResponse) {
+    public void setOperationResponse(String operationResponse) {
         this.operationResponse = operationResponse;
     }
 

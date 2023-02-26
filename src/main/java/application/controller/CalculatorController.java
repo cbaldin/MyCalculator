@@ -15,6 +15,8 @@ import application.services.CalculatorService;
 import application.services.auth.AuthService;
 import application.services.operations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -105,9 +107,9 @@ public class CalculatorController {
     public ResponseEntity getRecords(@RequestHeader("Authorization") String token,
                            @RequestParam(value = "pag", required = false) Integer pag,
                            @RequestParam(value = "paginationSize", required = false) Integer paginationSize,
-                           @RequestParam(value = "orderByProperty", required = false) String orderProperty,
-                           @RequestParam(value = "orderBy", required = false) String orderBy){
-        final List<RecordDTO> recordDTOList = recordPaginationRepository.getRecordDTOSWighPagination(token, pag, paginationSize, orderProperty, orderBy);
+                           @RequestParam(value = "orderByProperty", required = false, defaultValue = "id") String orderProperty,
+                           @RequestParam(value = "orderBy", required = false, defaultValue = "ASC") Sort.Direction orderBy) {
+        final Page<RecordDTO> recordDTOList = recordPaginationRepository.getRecordDTOSWighPagination(token, pag, paginationSize, orderProperty, orderBy);
         return new ResponseEntity<>(recordDTOList, HttpStatus.OK);
     }
 

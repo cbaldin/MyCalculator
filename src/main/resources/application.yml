@@ -1,5 +1,5 @@
 server:
-  port: 443
+  port: 4443
   ssl:
     key-alias: geekstack-https
     key-store: classpath:geekstack-https.p12

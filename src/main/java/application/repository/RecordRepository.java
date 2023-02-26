@@ -16,5 +16,7 @@ public interface RecordRepository extends JpaRepository<Record, Long> {
 
     public Optional<Record> findFirstByUser(User user, Sort sort);
 
-    public List<Record> findByUser(User user, Pageable pageable);
+//    public List<Record> findByUser(User user, Pageable pageable);
+
+    public Page<Record> findByUser(User user, Pageable pageable);
 }

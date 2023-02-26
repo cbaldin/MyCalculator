@@ -2,6 +2,7 @@ package application.dto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class RecordDTO {
 
@@ -9,16 +10,17 @@ public class RecordDTO {
     private String operation;
     private Double amount;
     private Double userBalance;
-    private Double operationResponse;
-    private LocalDateTime date;
+    private String operationResponse;
+    private String date;
 
-    public RecordDTO(Long id, String operation, Double amount, Double userBalance, Double operationResponse, LocalDateTime date) {
+    public RecordDTO(Long id, String operation, Double amount, Double userBalance, String operationResponse, LocalDateTime date) {
         this.id = id;
         this.operation = operation;
         this.amount = amount;
         this.userBalance = userBalance;
         this.operationResponse = operationResponse;
-        this.date = date;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("mm/dd/yyyy HH:mm:ss");
+        this.date = date.format(formatter);
     }
 
     public Long getId() {
@@ -37,11 +39,11 @@ public class RecordDTO {
         return userBalance;
     }
 
-    public Double getOperationResponse() {
+    public String getOperationResponse() {
         return operationResponse;
     }
 
-    public LocalDateTime getDate() {
+    public String getDate() {
         return date;
     }
 }

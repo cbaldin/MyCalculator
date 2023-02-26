@@ -1,6 +1,7 @@
 package application.services.operations;
 
 import application.entities.OperationType;
+import application.entities.Record;
 import application.entities.Token;
 import application.entities.User;
 import application.exceptions.InvalidTokenException;
@@ -34,8 +35,6 @@ public class RandomStringGeneratorService extends Chargeable {
     public String getRandomString(String token) throws IOException, InterruptedException {
         token = normalizeAuthorizationToken(token);
         final Token tokenEntity = tokenRepository.findOneByToken(token).orElseThrow(UserNotFoundException::new);
-       charge(tokenEntity.getUser(), OperationType.RANDOM_STRING);
-
         var client = HttpClient.newHttpClient();
         var request = HttpRequest.newBuilder(
                         URI.create(COMPLETE_URL))
@@ -43,7 +42,11 @@ public class RandomStringGeneratorService extends Chargeable {
                 .build();
 
         var response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        return response.body();
+
+        String body = response.body();
+        Record record = charge(tokenEntity.getUser(), OperationType.RANDOM_STRING, body);
+
+        return body;
     }
 
     private String normalizeAuthorizationToken(String token) { //TODO create filter to check and normalize token and remove duplicated code

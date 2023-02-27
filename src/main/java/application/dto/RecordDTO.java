@@ -19,7 +19,7 @@ public class RecordDTO {
         this.amount = amount;
         this.userBalance = userBalance;
         this.operationResponse = operationResponse;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("mm/dd/yyyy HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMgi/dd/yyyy HH:mm:ss");
         this.date = date.format(formatter);
     }
 
